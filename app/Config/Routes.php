@@ -18,3 +18,4 @@ $routes->delete('/logout', 'Auth::logout', ['filter' => 'authenticated']);
 $routes->get('/dashboard', function () {
     return view('dashboard');
 }, ['filter' => 'authenticated']);
+
