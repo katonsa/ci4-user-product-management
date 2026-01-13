@@ -8,15 +8,15 @@
         <h1 class="h3 mb-3 fw-normal">Please Register</h1>
 
         <?php if (session()->getFlashdata('success')): ?>
-                <div class="alert alert-success">
-                    <?= session()->getFlashdata('success') ?>
-                </div>
+            <div class="alert alert-success">
+                <?= session()->getFlashdata('success') ?>
+            </div>
         <?php endif; ?>
 
         <?php if (session()->getFlashdata('error')): ?>
-                <div class="alert alert-danger">
-                    <?= session()->getFlashdata('error') ?>
-                </div>
+            <div class="alert alert-danger">
+                <?= session()->getFlashdata('error') ?>
+            </div>
         <?php endif; ?>
 
         <?php if (session()->getFlashdata('errors')): ?>

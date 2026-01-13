@@ -17,4 +17,34 @@ class UserModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    /**
+     * Syncs user groups (removes old, adds new).
+     *
+     * @param int $userId
+     * @param array $groupIds Array of Group IDs
+     * @return bool
+     */
+    public function syncGroups(int $userId, array $groupIds): bool
+    {
+        $builder = $this->db->table('groups_users');
+
+        // Remove all existing groups for this user
+        $builder->where('user_id', $userId)->delete();
+
+        // Insert new groups
+        if (empty($groupIds)) {
+            return true;
+        }
+
+        $data = [];
+        foreach ($groupIds as $groupId) {
+            $data[] = [
+                'user_id' => $userId,
+                'group_id' => (int) $groupId,
+            ];
+        }
+
+        return $builder->insertBatch($data) > 0;
+    }
 }

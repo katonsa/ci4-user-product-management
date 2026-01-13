@@ -21,18 +21,25 @@
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
+                </li>
+                <?php if (in_group('admin')): ?>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/dashboard">Home</a>
+                        <a class="nav-link" href="/users">Users</a>
                     </li>
-                </ul>
-                <form class="d-flex" action="/logout" method="post">
-                    <?= csrf_field() ?>
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button class="btn btn-outline-light" type="submit">Logout</button>
-                </form>
-            </div>
+                <?php endif ?>
+            </ul>
+            <span class="navbar-text me-3">
+                <?= session()->get('user_name') ?>
+            </span>
+            <form class="d-flex" action="/logout" method="post">
+                <?= csrf_field() ?>
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-outline-light" type="submit">Logout</button>
+            </form>
+        </div>
         </div>
     </nav>
 
