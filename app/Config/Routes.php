@@ -17,6 +17,16 @@ $routes->delete('/logout', 'Auth::logout', ['filter' => 'authenticated']);
 
 $routes->get('/dashboard', 'Dashboard::index', ['filter' => 'authenticated']);
 
+// Category Management
+$routes->group('categories', ['filter' => ['authenticated']], function ($routes) {
+    $routes->get('/', 'ProductCategory::index');
+    $routes->get('new', 'ProductCategory::new');
+    $routes->post('/', 'ProductCategory::create');
+    $routes->get('(:num)/edit', 'ProductCategory::edit/$1');
+    $routes->put('(:num)', 'ProductCategory::update/$1');
+    $routes->delete('(:num)/delete', 'ProductCategory::delete/$1');
+});
+
 // Admin User Management
 $routes->group('users', ['filter' => ['authenticated', 'role:admin']], function ($routes) {
     $routes->get('/', 'UserManagement::index');

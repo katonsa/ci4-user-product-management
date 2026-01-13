@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categories">Categories</a>
+                </li>
                 <?php if (in_group('admin')): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/users">Users</a>
