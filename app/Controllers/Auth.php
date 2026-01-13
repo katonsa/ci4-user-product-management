@@ -26,7 +26,7 @@ class Auth extends BaseController
             'password' => 'required|min_length[6]',
         ];
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()
                 ->withInput()
                 ->with('errors', $this->validator->getErrors());
@@ -37,8 +37,8 @@ class Auth extends BaseController
         $user = $this->userModel->where('email', $this->request->getPost('email'))->first();
 
         if ($user && password_verify($this->request->getPost('password'), $user['password'])) {
-            session()->set('userId', $user['id']);
-            session()->set('isLoggedIn', true);
+            session()->set('user_id', $user['id']);
+            session()->set('is_logged_in', true);
             return redirect()->to('/dashboard');
         }
 
@@ -59,15 +59,15 @@ class Auth extends BaseController
             'password_confirm' => 'required|matches[password]',
         ];
 
-        if (! $this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()
                 ->withInput()
                 ->with('errors', $this->validator->getErrors());
         }
 
         $data = [
-            'name'     => $this->request->getPost('name'),
-            'email'    => $this->request->getPost('email'),
+            'name' => $this->request->getPost('name'),
+            'email' => $this->request->getPost('email'),
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
         ];
 

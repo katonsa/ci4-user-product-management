@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class AuthGuard implements FilterInterface
+class EnsureGuest implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -25,7 +25,7 @@ class AuthGuard implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (session()->get('isLoggedIn')) {
+        if (session()->get('is_logged_in')) {
             return redirect()->to('/dashboard');
         }
     }
