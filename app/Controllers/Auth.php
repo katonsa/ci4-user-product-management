@@ -37,7 +37,13 @@ class Auth extends BaseController
         $user = $this->userModel->where('email', $this->request->getPost('email'))->first();
 
         if ($user && password_verify($this->request->getPost('password'), $user['password'])) {
+
+            if ($user['is_active'] == 0) {
+                return redirect()->back()->with('error', 'User tidak aktif');
+            }
+
             session()->set('user_id', $user['id']);
+            session()->set('user_name', $user['name']);
             session()->set('is_logged_in', true);
             return redirect()->to('/dashboard');
         }
