@@ -27,6 +27,17 @@ $routes->group('categories', ['filter' => ['authenticated']], function ($routes)
     $routes->delete('(:num)/delete', 'ProductCategory::delete/$1');
 });
 
+// Product Management
+$routes->group('products', ['filter' => ['authenticated']], function ($routes) {
+    $routes->get('/', 'Product::index');
+    $routes->get('new', 'Product::new');
+    $routes->post('/', 'Product::create');
+    $routes->get('(:num)/edit', 'Product::edit/$1');
+    $routes->put('(:num)', 'Product::update/$1');
+    $routes->patch('(:num)/toggle', 'Product::toggleActive/$1');
+    $routes->delete('(:num)/delete', 'Product::delete/$1');
+});
+
 // Admin User Management
 $routes->group('users', ['filter' => ['authenticated', 'role:admin']], function ($routes) {
     $routes->get('/', 'UserManagement::index');
