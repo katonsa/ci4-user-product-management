@@ -10,28 +10,61 @@ class CreateProductsTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
+            'category_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true,
+            ],
             'name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'sku' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'unique' => true,
+            ],
+            'description' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
             'price' => [
-                'type' => 'INT',
+                'type' => 'DECIMAL',
+                'constraint' => '10,2',
+                'default' => 0.00,
             ],
             'stock' => [
                 'type' => 'INT',
+                'default' => 0,
+            ],
+            'image_url' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true,
             ],
             'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
         ]);
 
         $this->forge->addKey('id', true);
+        $this->forge->addKey('category_id');
+        $this->forge->addForeignKey('category_id', 'categories', 'id', 'CASCADE', 'SET NULL');
         $this->forge->createTable('products');
     }
 
@@ -40,3 +73,4 @@ class CreateProductsTable extends Migration
         $this->forge->dropTable('products');
     }
 }
+
